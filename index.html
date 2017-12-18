@@ -1,0 +1,101 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>EconomyPanel LA</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="css/economy_panel.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="lib/jQuery3.2.1.js"></script>
+  <script src="lib/crossfilter.min.js"></script>
+  <script src="lib/tether.min.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
+  <script src="lib/stringFormatting.js"></script>
+</head>
+
+<header>
+  <h1 id="myTitle">EconomyPanel LA</h1>
+  <span>Updated October 25, 2017. Download the data: <a href="data/EconomyPanel.xlsx">xls</a> <a href="data/EconomyPanel.csv">csv</a></span>
+</header>
+<hr style="margin-top:0px">
+
+<body>
+
+  <div class="container">
+
+    <div class="row">
+
+      <div id="selectionDiv" class="col col-md-3" style="padding:0px">
+      	<div id="collapse" style="float:right">
+      	  <img src="triangle.svg" width="25px" height="25px" style="padding:5px; transform: scaleX(-1)"/>
+        </div>
+
+        <div id="categoryDiv" class="form-group" style="display:inline-block;">
+          <label for="selectCategory" style="font-weight:bold">Category</label>
+          <select id="selectCategory" class="form-control" onchange="alert('hello');">
+            <option>-</option>
+          </select>
+        </div>
+
+        <div id="indicatorDiv" class="form-group" style="display:none;">
+          <label for="selectIndicator" style="font-weight:bold">Indicator</label>
+          <select class="form-control" id="selectIndicator">
+            <option>-</option>
+          </select>
+        </div>
+
+        <div id="subindicatorDiv" class="form-group" style="display:none;">
+          <label for="selectSubindicator" style="font-weight:bold">Sub-indicator</label>
+          <select class="form-control" id="selectSubindicator">
+            <option>-</option>
+          </select>
+        </div>
+
+        <div id="genderDiv" class="form-group" style="display:none;">
+          <label for="selectGender" style="font-weight:bold">Gender</label>
+          <select class="form-control" id="selectGender">
+            <option>-</option>
+          </select>
+        </div>
+
+      </div> <!-- end of variable selection column -->
+
+      <!-- a small placeholder div that the user can click to open up the variable selection column after it's closed -->
+      <div>
+      	<img id="expand" src="triangle.svg" width="25px" height="25px" style="padding:5px; margin:0px"/>
+      </div>
+
+
+
+      <div class="col-md-9" style="border-left: 1px solid #CCC;">
+      	<h5 id="mapTitle"></h5>
+        <div style="height:20px">
+      	  <span class="timeToggle"><span id="timePrelabel" style="line-height:20px; vertical-align: top"></span><span id="timeSparkline"></span> <span id="timeLabel"></span></span>
+        </div>
+        <div id="map_div"></div>
+        <div id="source" style="display:none;">
+          <span style="font-weight: bold">Source: </span><span id="sourceSpan" style="font-size:16px"></span>
+        </div>
+      	<br>
+      	<a href="council_district_map.html" style="font-size:12px">Looking for geographic context? Open a detailed map</a>
+      </div> <!-- end of visualization column div -->
+
+
+    </div> <!-- end of row div -->
+
+  </div> <!-- end of container div -->
+
+  <div style="height:30px"></div>
+  <hr>
+  <div class="footer">
+    <p>This project was built using a number of open source tools, including <a href="http://getbootstrap.com">Bootstrap</a>, <a href="http://square.github.io/crossfilter/">Crossfilter</a>, <a href="https://d3js.org">D3</a>, and <a href="https://jquery.com">jQuery</a>.</p>
+  </div>
+
+  <!-- automatically hide the expand div -->
+  <script> $('#expand').hide() </script>
+
+  <script src="lib/d3_v4.js"></script>
+  <script src="lib/queue.js"></script>
+  <script src="timeToggle.js"></script>
+  <script src="EconomyPanel.js"></script>
+
+</body>
