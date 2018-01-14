@@ -153,7 +153,7 @@ function map_ready(error, geodata, econdata) {
       d3.selectAll('.district').classed('frozen', false);
       d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
       d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
-    } else {
+    } else if (selection_complete) {
       // unselect all districts then select the chosen district
       d3.selectAll('.district').classed('selected', false);
       d3.selectAll('.district').classed('highlighted', false);
@@ -200,6 +200,9 @@ function map_ready(error, geodata, econdata) {
     // we want to select the path, not the row
     if (d3.select(this)._groups[0][0].tagName=="path") {
       district = d3.select(this);
+      if (selection_complete) {
+        district.style('cursor', 'pointer');
+      }
     } else if (d3.select(this).attr('id')!="City") {
       d3.select(this).style('cursor', 'pointer');
       id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
@@ -214,10 +217,10 @@ function map_ready(error, geodata, econdata) {
       councilmember_text = district.attr('councilmember');
       cd_label.text(district_text);
       cd_councilmember.text(councilmember_text);
-      cd_value.text('(Click to select/unselect)');
 
       // if variable selection is complete, highlight the district in the table
       if (selection_complete) {
+        cd_value.text('(Click to select/unselect)');
         var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
         var locations_long = locations.map(function (d) {return d.long});
         var locations_short = locations.map(function (d) {return d.short});
@@ -362,7 +365,14 @@ function map_ready(error, geodata, econdata) {
       .attr('y', 0)
       .attr('fill', 'black')
       .attr('font-size', '14px')
-      .attr('style', 'font-weight:normal')
+      .attr('style', function(d) {
+        if (d.short=='City') {
+          out = 'font-weight:normal; font-style:italic';
+        } else {
+          out = 'font-weight:normal';
+        }
+        return(out);
+      })
       .text(d.long);
   })
     
@@ -376,7 +386,14 @@ function map_ready(error, geodata, econdata) {
       .attr('y', 0)
       .attr('fill', 'black')
       .attr('font-size', '14px')
-      .attr('style', 'font-weight:normal')
+      .attr('style', function(d) {
+        if (d.short=='City') {
+          out = 'font-weight:normal; font-style:italic';
+        } else {
+          out = 'font-weight:normal';
+        }
+        return(out);
+      })
       .text('value goes here');
   })
 
@@ -397,7 +414,7 @@ function map_ready(error, geodata, econdata) {
   // create a group for the titles and append text
   var titleGroup = tableGroup.append('g').attr('id', 'titleGroup');
   titleGroup.append('text').attr('x', 0).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('Location');
-  titleGroup.append('text').attr('x', 140).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('Value');
+  titleGroup.append('text').attr('x', 140).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('Quantity');
 
   // place all the text on the right hand side
   tableGroup.attr('transform', 'translate(460,70)');
