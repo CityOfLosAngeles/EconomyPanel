@@ -87,9 +87,10 @@ function map_ready(error, geodata, econdata) {
 
   // cf = data;
 
-  // map title variable
+  // map title and subtitle variables
   mapTitle = d3.select('#mapTitle');
   mapTitle.text('Please select a variable');
+  mapSubtitle = d3.select('#mapSubtitle');
 
 
 
@@ -414,7 +415,7 @@ function map_ready(error, geodata, econdata) {
   // create a group for the titles and append text
   var titleGroup = tableGroup.append('g').attr('id', 'titleGroup');
   titleGroup.append('text').attr('x', 0).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('Location');
-  titleGroup.append('text').attr('x', 140).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('Quantity');
+  titleGroup.append('text').attr('id','units').attr('x', 140).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('');
 
   // place all the text on the right hand side
   tableGroup.attr('transform', 'translate(460,70)');
@@ -571,8 +572,9 @@ function map_ready(error, geodata, econdata) {
     // delete legend
     d3.selectAll('.legend').remove();
 
-    // delete title
+    // delete title and subtitle
     mapTitle.text('Please select a variable');
+    mapSubtitle.text('');
 
     // remove timeToggle if it exists
     d3.select('#timeToggleSVG').remove();
@@ -674,7 +676,7 @@ function map_ready(error, geodata, econdata) {
 
 
 
-  // function for updating the map title
+  // function for updating the map title (also update the column title of data table)
   // assume the plotting variable has been chosen, and the mapTitle object
   // is available in the map_ready namespace
   updateTitle = function(maintext) {
@@ -686,9 +688,15 @@ function map_ready(error, geodata, econdata) {
       units = unitCounts.map(function (d) {return d.key})[0];
       unitsFilter.dispose();
 
-      if (units!='') {
-        units = ', ' + units;
+      // update the column title of the data table
+      if (units=='#') {
+        d3.select('#units').text('Number');
+      } else if (units=='$') {
+        d3.select('#units').text('Value ($)');
+      } else if (units=='%') {
+        d3.select('#units').text('Percent');
       }
+      
 
       // find the unit text
       unitTextFilter = data.dimension(function (d) {return d.unit_text});
@@ -696,13 +704,14 @@ function map_ready(error, geodata, econdata) {
       unitText = unitTextCounts.map(function (d) {return d.key})[0];
       unitTextFilter.dispose();
 
-      if (unitText!='') {
-        unitText = ', ' + unitText;
-      }
-
-      mapTitle.text(maintext + units + unitText);
+      // update the title and subtitle
+      mapTitle.text(maintext + ' (' + units + ')');
+      mapSubtitle.text(unitText);
+      
     } else {
+      // blank out the title and subtitle
       mapTitle.text('Please select a variable');
+      mapSubtitle.text('');
     }
   }
 
