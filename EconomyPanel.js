@@ -84,6 +84,7 @@ function map_ready(error, geodata, econdata) {
   var has_gender = false;
   var gender_selected = false;
   var subind_selected = false;
+  var district_selected = false;
 
   // cf = data;
 
@@ -135,126 +136,284 @@ function map_ready(error, geodata, econdata) {
 
   // mouse functionality - click, mouseover, mouseout //
 
+  // mouseclick = function() {
+    
+  //   // check whether the object is a path in the map, or a row in the table
+  //   // we want to select the path, not the row
+  //   if (d3.select(this)._groups[0][0].tagName=="path") {
+  //     district = d3.select(this);
+  //   } else if (d3.select(this).attr('id')!="City") {
+  //     id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
+  //     district = d3.select('#' + id_tmp);
+  //   }
+
+  //   // determine the prior state of the district (selected or not)
+  //   isSelected = district.classed('selected');
+
+  //   // if it's selected, unselect it and set district_selected = false
+  //   if (isSelected) {
+  //     district.classed('selected', false);
+  //     district_selected = false;
+  //     d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
+  //     d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
+  //   } else if (selection_complete) {
+  //     // unselect all districts then select the chosen district, set district_selected = true;
+  //     d3.selectAll('.district').classed('selected', false);
+  //     district_selected = true;
+  //     d3.selectAll('.district').classed('highlighted', false);
+  //     district.moveToFront().classed('selected', true);
+  //     d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
+  //     d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
+
+  //     // update the display text
+  //     district = district;
+  //     district_text = district.attr('label');
+  //     councilmember_text = district.attr('councilmember');
+  //     cd_label.text(district_text);
+  //     cd_councilmember.text(councilmember_text);
+
+  //     // highlight the district in the table
+  //     var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
+  //     var locations_long = locations.map(function (d) {return d.long});
+  //     var locations_short = locations.map(function (d) {return d.short});
+  //     var index_tmp = locations_long.indexOf(district_text);
+  //     var id_tmp = '#' + locations_short[index_tmp];
+  //     d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
+  //     d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
+
+  //   }
+  //   // update the time toggle
+  //   updateTimescale();
+  // }
+
+
+  // // boolean for controlling mouseover. otherwise it gets buggy in Internet Explorer.
+  // var mouseoverStatus = false;
+
+  // mouseover = function() {
+
+  //   if (!mouseoverStatus & !district_selected) {
+
+  //   // unhighlight all districts
+  //   d3.selectAll('.district').classed('highlighted', false);
+
+  //   // check whether the object being hovered over is a path in the map, or a row in the table
+  //   // we want to select the path, not the row
+  //   if (d3.select(this)._groups[0][0].tagName=="path") {
+  //     district = d3.select(this);
+  //     if (selection_complete) {
+  //       district.style('cursor', 'pointer');
+  //     }
+  //   } else if (d3.select(this).attr('id')!="City") {
+  //     d3.select(this).style('cursor', 'pointer');
+  //     id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
+  //     district = d3.select('#' + id_tmp);
+  //   }
+
+  //   // highlight and update the display text
+  //   district.moveToFront().classed('highlighted', true);
+  //   district_text = district.attr('label');
+  //   councilmember_text = district.attr('councilmember');
+  //   cd_label.text(district_text);
+  //   cd_councilmember.text(councilmember_text);
+
+  //   // if variable selection is complete, highlight the district in the table
+  //   if (selection_complete) {
+  //     cd_value.text('(Click to select/unselect)');
+  //     var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
+  //     var locations_long = locations.map(function (d) {return d.long});
+  //     var locations_short = locations.map(function (d) {return d.short});
+  //     var index_tmp = locations_long.indexOf(district_text);
+  //     var id_tmp = '#' + locations_short[index_tmp];
+  //     d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
+  //     d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
+  //   }
+
+  // mouseoverStatus = true;
+  // } // end of if(!mouseoverStats & !district_selected)
+  // }
+
+  // mouseout = function() {
+  //   if (!district_selected) {
+  //     mouseoverStatus = false;
+  //     // check whether the object is a path in the map, or a row in the table
+  //     // we want to select the path, not the row
+  //     if (d3.select(this)._groups[0][0].tagName=="path") {
+  //       district = d3.select(this);
+  //     } else if (d3.select(this).attr('id')!="City") {
+  //       d3.select(this).style('cursor', 'auto');
+  //       id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
+  //       district = d3.select('#' + id_tmp);
+  //     }
+
+  //     district.classed('highlighted', false);
+  //     cd_label.text('');
+  //     cd_councilmember.text('');
+  //     cd_value.text('');
+
+  //     // if variable selection is complete, highlight the district in the table
+  //     if (selection_complete) {
+  //       var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
+  //       var locations_long = locations.map(function (d) {return d.long});
+  //       var locations_short = locations.map(function (d) {return d.short});
+  //       var index_tmp = locations_long.indexOf(district_text);
+  //       var id_tmp = '#' + locations_short[index_tmp];
+  //       d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:normal');
+  //       d3.select(id_tmp).select('.background').attr('style', 'stroke: none; fill:none');
+  //     }
+  //   }
+  // }
+
+
   mouseclick = function() {
     
     // check whether the object is a path in the map, or a row in the table
-    // we want to select the path, not the row
+    // either way, save the selections for both
     if (d3.select(this)._groups[0][0].tagName=="path") {
-      district = d3.select(this);
+      id_tmp = "#CD" + d3.select(this).attr('id').match(/\d/)
+      district_row = d3.select(id_tmp);
+      district_map = d3.select(this);
     } else if (d3.select(this).attr('id')!="City") {
       id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
-      district = d3.select('#' + id_tmp);
+      district_row = d3.select(this);
+      district_map = d3.select('#' + id_tmp);
+    } else {
+      district_row = d3.select(this);
+      district_map = null;
     }
 
     // determine the prior state of the district (selected or not)
-    isSelected = district.classed('selected');
-    // if it's selected, unselect it
+    isSelected = district_row.classed('selected');
+
+    // if it's selected, unselect it and set district_selected = false
     if (isSelected) {
-      district.classed('selected', false);
-      d3.selectAll('.district').classed('frozen', false);
+      district_row.classed('selected', false);
+      if (district_map) district_map.classed('selected', false);
+      district_selected = false;
       d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
       d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
     } else if (selection_complete) {
-      // unselect all districts then select the chosen district
+      // unselect all districts then select the chosen district, set district_selected = true;
       d3.selectAll('.district').classed('selected', false);
+      district_selected = true;
       d3.selectAll('.district').classed('highlighted', false);
-      district.moveToFront().classed('selected', true);
+      if (district_map) district_map.moveToFront().classed('selected', true);
+      district_row.classed('selected', true);
       d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
       d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
 
       // update the display text
-      district = district;
-      district_text = district.attr('label');
-      councilmember_text = district.attr('councilmember');
-      cd_label.text(district_text);
-      cd_councilmember.text(councilmember_text);
-
-      // if variable selection is complete, highlight the district in the table
-      if (selection_complete) {
-        // highlight the district in the table
-        var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
-        var locations_long = locations.map(function (d) {return d.long});
-        var locations_short = locations.map(function (d) {return d.short});
-        var index_tmp = locations_long.indexOf(district_text);
-        var id_tmp = '#' + locations_short[index_tmp];
-        d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
-        d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
+      if (district_map) {
+        district_text = district_map.attr('label');
+        councilmember_text = district_map.attr('councilmember');
+        cd_label.text(district_text);
+        cd_councilmember.text(councilmember_text);
       }
 
-      // "Freeze" all districts to disable mouseover
-      d3.selectAll('.district').classed('frozen', true);
+      // highlight the district in the table
+      var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
+      var locations_long = locations.map(function (d) {return d.long});
+      var locations_short = locations.map(function (d) {return d.short});
+      var index_tmp = locations_long.indexOf(district_text);
+      var id_tmp = '#' + locations_short[index_tmp];
+      d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
+      d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
+
     }
     // update the time toggle
     updateTimescale();
   }
 
+
+  // boolean for controlling mouseover. otherwise it gets buggy in Internet Explorer.
   var mouseoverStatus = false;
 
   mouseover = function() {
 
-    if (!mouseoverStatus) {
+    if (!mouseoverStatus & !district_selected) {
 
     // unhighlight all districts
     d3.selectAll('.district').classed('highlighted', false);
 
     // check whether the object is a path in the map, or a row in the table
-    // we want to select the path, not the row
+    // either way, save the selections for both
     if (d3.select(this)._groups[0][0].tagName=="path") {
-      district = d3.select(this);
-      if (selection_complete) {
-        district.style('cursor', 'pointer');
-      }
+      id_tmp = "#CD" + d3.select(this).attr('id').match(/\d/)
+      district_row = d3.select(id_tmp);
+      district_map = d3.select(this);
     } else if (d3.select(this).attr('id')!="City") {
-      d3.select(this).style('cursor', 'pointer');
       id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
-      district = d3.select('#' + id_tmp);
+      district_row = d3.select(this);
+      district_map = d3.select('#' + id_tmp);
+    } else {
+      district_row = d3.select(this);
+      district_map = null;
     }
 
-    // if the district is not frozen, highlight and update the display text
-    isFrozen = district.classed('frozen');
-    if (!isFrozen) {
-      district.moveToFront().classed('highlighted', true);
-      district_text = district.attr('label');
-      councilmember_text = district.attr('councilmember');
+    // highlight and update the display text
+    if (district_map) {
+      district_map.moveToFront().classed('highlighted', true);
+      district_text = district_map.attr('label');
+      councilmember_text = district_map.attr('councilmember');
       cd_label.text(district_text);
       cd_councilmember.text(councilmember_text);
-
-      // if variable selection is complete, highlight the district in the table
-      if (selection_complete) {
-        cd_value.text('(Click to select/unselect)');
-        var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
-        var locations_long = locations.map(function (d) {return d.long});
-        var locations_short = locations.map(function (d) {return d.short});
-        var index_tmp = locations_long.indexOf(district_text);
-        var id_tmp = '#' + locations_short[index_tmp];
-        d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
-        d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
-      }
+    } else {
+      district_text = "City of Los Angeles";
+      cd_label.text(district_text);
+      cd_councilmember.text('(Click to select/unselect)');
     }
-  mouseoverStatus = true;
-  } // end of if(!mouseoverStats)
+
+    // if variable selection is complete, highlight the district in the table
+    if (selection_complete) {
+      if (district_map) cd_value.text('(Click to select/unselect)');
+      var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
+      var locations_long = locations.map(function (d) {return d.long});
+      var locations_short = locations.map(function (d) {return d.short});
+      var index_tmp = locations_long.indexOf(district_text);
+      var id_tmp = '#' + locations_short[index_tmp];
+      d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
+      d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
+    }
+
+    mouseoverStatus = true;
+    } // end of if(!mouseoverStats & !district_selected)
   }
 
   mouseout = function() {
-    mouseoverStatus = false;
-    // check whether the object is a path in the map, or a row in the table
-    // we want to select the path, not the row
-    if (d3.select(this)._groups[0][0].tagName=="path") {
-      district = d3.select(this);
-    } else if (d3.select(this).attr('id')!="City") {
-      d3.select(this).style('cursor', 'auto');
-      id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
-      district = d3.select('#' + id_tmp);
-    }
+    if (!district_selected) {
+      mouseoverStatus = false;
 
-    isFrozen = district.classed('frozen');
-    if (!isFrozen) {
-      district.classed('highlighted', false);
+      // check whether the object is a path in the map, or a row in the table
+      // either way, save the selections for both
+      if (d3.select(this)._groups[0][0].tagName=="path") {
+        id_tmp = "#CD" + d3.select(this).attr('id').match(/\d/)
+        district_row = d3.select(id_tmp);
+        district_map = d3.select(this);
+      } else if (d3.select(this).attr('id')!="City") {
+        id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
+        district_row = d3.select(this);
+        district_map = d3.select('#' + id_tmp);
+      } else {
+        district_row = d3.select(this);
+        district_map = null;
+      }
+
+      // unhighlight the map
+      if (district_map) district_map.classed('highlighted', false);
+
+      // remove the map labels
       cd_label.text('');
       cd_councilmember.text('');
       cd_value.text('');
 
-      // if variable selection is complete, highlight the district in the table
+      // get the district text (for unhighlighting the corresponding row)
+      if (district_map) {
+        district_text = district_map.attr('label');
+      } else {
+        district_text = "City of Los Angeles";
+      }
+
+      // if variable selection is complete, unhighlight the district in the table
       if (selection_complete) {
         var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
         var locations_long = locations.map(function (d) {return d.long});
@@ -324,7 +483,6 @@ function map_ready(error, geodata, econdata) {
       .attr('value', '')
       .attr('style', function (d,i) {return 'fill:' + d.fill})
       .classed('selected', false)
-      .classed('frozen', false)
       .classed('district', true)
       .attr('vector-effect', 'non-scaling-stroke')
       .on('click', mouseclick)
@@ -342,6 +500,7 @@ function map_ready(error, geodata, econdata) {
   tableGroup.selectAll('g')
     .data(locations).enter()
     .append('g')
+    .classed('selected',false)
     .attr('id', function (d) {return d.short})
     .attr('longID', function (d) {return d.long})
     .on('click', mouseclick)
@@ -1082,5 +1241,4 @@ d3.selection.prototype.moveToFront = function() {
     this.parentNode.appendChild(this);
   });
 };
-
 
