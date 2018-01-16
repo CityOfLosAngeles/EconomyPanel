@@ -285,22 +285,24 @@ function map_ready(error, geodata, econdata) {
     // determine the prior state of the district (selected or not)
     isSelected = district_row.classed('selected');
 
-    // if it's selected, unselect it and set district_selected = false
+    // unselect all districts (paths and tableRows)
+    d3.selectAll('.district').classed('selected', false);
+    d3.selectAll('.tableRow').classed('selected', false);
+
+    // unhighlight everything in the table (and map if the selection is complete)
+    if (selection_complete) d3.selectAll('.district').classed('highlighted', false);
+    d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
+    d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
+
+    // if it was selected, set district_selected = false
     if (isSelected) {
-      district_row.classed('selected', false);
-      if (district_map) district_map.classed('selected', false);
       district_selected = false;
-      d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
-      d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
     } else if (selection_complete) {
-      // unselect all districts then select the chosen district, set district_selected = true;
-      d3.selectAll('.district').classed('selected', false);
-      district_selected = true;
-      d3.selectAll('.district').classed('highlighted', false);
+      // if it wasn't selected, select it, set district_selected = true, update display text, hightlight table
+
       if (district_map) district_map.moveToFront().classed('selected', true);
       district_row.classed('selected', true);
-      d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
-      d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
+      district_selected = true;
 
       // update the display text
       if (district_map) {
@@ -308,6 +310,10 @@ function map_ready(error, geodata, econdata) {
         councilmember_text = district_map.attr('councilmember');
         cd_label.text(district_text);
         cd_councilmember.text(councilmember_text);
+      } else {
+      	district_text = "City of Los Angeles";
+      	cd_label.text(district_text);
+      	cd_councilmember.text('(Click to select/unselect)');
       }
 
       // highlight the district in the table
@@ -500,6 +506,7 @@ function map_ready(error, geodata, econdata) {
   tableGroup.selectAll('g')
     .data(locations).enter()
     .append('g')
+    .classed('tableRow', true)
     .classed('selected',false)
     .attr('id', function (d) {return d.short})
     .attr('longID', function (d) {return d.long})
@@ -757,14 +764,14 @@ function map_ready(error, geodata, econdata) {
   // assumes that the data have been filtered to a single variable
   var updateTimescale = function() {
     // if a district is selected and the selection is complete, add the time series for that district
-    selected_district = d3.selectAll('.district').filter('.selected');
+    selected_district = d3.selectAll('.tableRow').filter('.selected');
     if (selected_district._groups[0].length==1 & selection_complete) {
       // create council_district filter
       var council_district = data.dimension(function (d) {
         return d["council_district"];
       });
       // select only the data for the selected district
-      council_district.filter(selected_district.attr('label'));
+      council_district.filter(selected_district.attr('longID'));
 
       // remove any time filters
       time.filterAll();
