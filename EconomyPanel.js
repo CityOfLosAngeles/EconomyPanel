@@ -292,6 +292,8 @@ function map_ready(error, geodata, econdata) {
     // unhighlight everything in the table (and map if the selection is complete)
     if (selection_complete) d3.selectAll('.district').classed('highlighted', false);
     d3.select('#table').selectAll('text').attr('style', 'font-weight:normal');
+    d3.select('#table').selectAll('text').filter('.title').attr('style', 'font-weight:bold; font-size:14px');
+    d3.select('#City').selectAll('text').attr('style', 'font-weight:normal; font-size:14px; font-style:italic');
     d3.select('#table').selectAll('.background').attr('style', 'stroke:none; fill:none');
 
     // if it was selected, set district_selected = false
@@ -310,10 +312,12 @@ function map_ready(error, geodata, econdata) {
         councilmember_text = district_map.attr('councilmember');
         cd_label.text(district_text);
         cd_councilmember.text(councilmember_text);
+        cd_value.text('(Click to select/unselect)');
       } else {
       	district_text = "City of Los Angeles";
       	cd_label.text(district_text);
       	cd_councilmember.text('(Click to select/unselect)');
+      	cd_value.text('');
       }
 
       // highlight the district in the table
@@ -336,7 +340,15 @@ function map_ready(error, geodata, econdata) {
 
   mouseover = function() {
 
-    if (!mouseoverStatus & !district_selected) {
+  	// activate mouseover if:
+  	// (1) mouseoverStatus==false AND
+  	// (2) district_selected==false AND
+  	// (3) (the object is a path OR (the object is a tableRow AND selection is complete))
+
+  	// the following is equivalent to (3): !(!isPath & !selection_complete)
+  	var isPath = d3.select(this)._groups[0][0].tagName=="path"
+
+    if (!mouseoverStatus & !district_selected & !(!isPath & !selection_complete)) {
 
     // unhighlight all districts
     d3.selectAll('.district').classed('highlighted', false);
@@ -367,10 +379,14 @@ function map_ready(error, geodata, econdata) {
       district_text = "City of Los Angeles";
       cd_label.text(district_text);
       cd_councilmember.text('(Click to select/unselect)');
+      cd_value.text('');
     }
 
-    // if variable selection is complete, highlight the district in the table
+    // if variable selection is complete, change the cursor and highlight the district in the table
     if (selection_complete) {
+      // change the cursor
+	  district_row.style('cursor', 'pointer');
+	  if (district_map) district_map.style('cursor', 'pointer');
       if (district_map) cd_value.text('(Click to select/unselect)');
       var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
       var locations_long = locations.map(function (d) {return d.long});
@@ -407,6 +423,10 @@ function map_ready(error, geodata, econdata) {
       // unhighlight the map
       if (district_map) district_map.classed('highlighted', false);
 
+      // return cursors to default
+      d3.selectAll('.district').style('cursor','default');
+      d3.selectAll('.tableRow').style('cursor','default');
+
       // remove the map labels
       cd_label.text('');
       cd_councilmember.text('');
@@ -428,6 +448,7 @@ function map_ready(error, geodata, econdata) {
         var id_tmp = '#' + locations_short[index_tmp];
         d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:normal');
         d3.select(id_tmp).select('.background').attr('style', 'stroke: none; fill:none');
+        d3.select('#City').selectAll('text').attr('style', 'font-weight:normal; font-size:14px; font-style:italic');
       }
     }
   }
@@ -580,8 +601,8 @@ function map_ready(error, geodata, econdata) {
 
   // create a group for the titles and append text
   var titleGroup = tableGroup.append('g').attr('id', 'titleGroup');
-  titleGroup.append('text').attr('x', 0).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('Location');
-  titleGroup.append('text').attr('id','units').attr('x', 140).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('');
+  titleGroup.append('text').classed('title',true).attr('x', 0).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('Location');
+  titleGroup.append('text').classed('title',true).attr('id','units').attr('x', 140).attr('y', 0).attr('fill', 'black').attr('style', 'font-size: 14px; font-weight: bold').text('');
 
   // place all the text on the right hand side
   tableGroup.attr('transform', 'translate(460,70)');
@@ -676,6 +697,7 @@ function map_ready(error, geodata, econdata) {
     // update the table
     // first, make the table visible
     d3.select('#table').selectAll('text').attr('fill', 'black');
+    d3.selectAll('.tableRow').filter('.selected').select('.background').attr('style', 'stroke:gray; fill:none');
 
     // scale for the bars
     // exclude the city of LA if it's greater than or equal to the sum of the next three largest values
@@ -831,7 +853,7 @@ function map_ready(error, geodata, econdata) {
       } else if (fiscal_year) {
         var freq = "Fiscal year";
       }
-      d3.select('#timePrelabel').text(freq + ' (hover to select): ');
+      d3.select('#timePrelabel').text(freq + ' (mouseover to change): ');
     } else {
       // remove timeToggle if it exists
       d3.select('#timeToggleSVG').remove();
