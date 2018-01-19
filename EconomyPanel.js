@@ -372,7 +372,7 @@ function map_ready(error, geodata, econdata) {
       .attr('label', function (d) {return d.properties.Council_District;})
       .attr('councilmember', function (d) {return d.properties.Councilmember;})
       .attr('value', '')
-      .attr('style', function (d,i) {return 'fill:' + d.fill})
+      .attr('style', function (d,i) {return 'fill: white'})
       .classed('selected', false)
       .classed('district', true)
       .attr('vector-effect', 'non-scaling-stroke')
@@ -619,7 +619,7 @@ function map_ready(error, geodata, econdata) {
   // function for removing all data from the visualization when changing variables
   var clearMap = function() {
     // change the map to the original colors
-    mapLayer.selectAll('path').attr('style', function (d,i) {return 'fill:' + d.fill});
+    mapLayer.selectAll('path').attr('style', function (d,i) {return 'fill: white'});
 
     // delete legend
     d3.selectAll('.legend').remove();
