@@ -1130,8 +1130,7 @@ var carouselStates = {
   5: {category: 'TRANSIT', indicator: 'COMMUTERS USING PUBLIC TRANSIT'},
   6: {category: 'EMPLOYMENT', indicator: 'TOTAL EMPLOYMENT'},
   7: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'SINGLE-FAMILY PERMITS'},
-  8: {category: 'DEMOGRAPHICS', indicator: 'MEDIAN AGE'},
-  9: {category: 'DEMOGRAPHICS', indicator: 'POPULATION BY AGE BY GENDER', subindicator: '20 TO 34 YEARS', gender: 'FEMALE'}
+  8: {category: 'DEMOGRAPHICS', indicator: 'MEDIAN AGE'}
 };
 
 function changeVar(current_state) {
