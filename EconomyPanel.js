@@ -1160,7 +1160,7 @@ window.setInterval(function(){
   if (carousel) {
     changeVar(carouselState);
   }
-}, 4000);
+}, 3000);
 
 
 
