@@ -14,7 +14,9 @@
 
 <header>
   <h1 id="myTitle">EconomyPanel LA</h1>
-  <span>Updated October 25, 2017.<sup>*</sup> Download the data: <a href="data/EconomyPanel.xlsx">xls</a> <a href="data/EconomyPanel.csv">csv</a></span>
+  <span>Updated October 25, 2017.<sup>*</sup> Download the data: <a href="data/EconomyPanel.xlsx">xls</a> <a href="data/EconomyPanel.csv">csv</a></span><br>
+  <span>Slideshow view: </span><span id='carousel' style="color:red">On</span>
+  <div style="height:3px"></div>
 </header>
 <hr style="margin-top:0px">
 
@@ -31,7 +33,7 @@
 
         <div id="categoryDiv" class="form-group" style="display:inline-block;">
           <label for="selectCategory" style="font-weight:bold">Category</label>
-          <select id="selectCategory" class="form-control" onchange="alert('hello');">
+          <select id="selectCategory" class="form-control">
             <option>-</option>
           </select>
         </div>
@@ -92,8 +94,10 @@
     <p>This project was built using a number of open source tools, including <a href="http://getbootstrap.com">Bootstrap</a>, <a href="http://square.github.io/crossfilter/">Crossfilter</a>, <a href="https://d3js.org">D3</a>, and <a href="https://jquery.com">jQuery</a>.</p>
   </div>
 
-  <!-- automatically hide the expand div -->
-  <script> $('#expand').hide() </script>
+  <!-- automatically hide the selection div -->
+  <script> $('#selectionDiv').hide() </script>
+  <script> $('#collapse').hide() </script>
+  <!-- <script> $('#expand').hide() </script> -->
 
   <script src="lib/d3_v4.js"></script>
   <script src="lib/queue.js"></script>

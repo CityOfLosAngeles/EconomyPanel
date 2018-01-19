@@ -944,7 +944,9 @@ function map_ready(error, geodata, econdata) {
         makeLegend(map_svg_width * 0.4, map_svg_height * 0.5, 30, 5, color);
         updateTitle(ind);
         // hide the selection div
-        toggleSelectionDiv();
+        $('#selectionDiv').fadeOut(0);
+        $('#collapse').fadeOut(0);
+        $('#expand').fadeIn(0);
       } else {
         clearMap();
       }
@@ -1005,7 +1007,9 @@ function map_ready(error, geodata, econdata) {
         updateTitle(current_indicator + ': ' + sub + gen);
 
         // hide the selection div
-        toggleSelectionDiv();
+        $('#selectionDiv').fadeOut(0);
+        $('#collapse').fadeOut(0);
+        $('#expand').fadeIn(0);
       }
     } else {
       clearMap();
@@ -1054,7 +1058,9 @@ function map_ready(error, geodata, econdata) {
       updateTitle(current_indicator + subind + ', ' + gen);
 
       // hide the selection div
-      toggleSelectionDiv();
+      $('#selectionDiv').fadeOut(0);
+      $('#collapse').fadeOut(0);
+      $('#expand').fadeIn(0);
     }
   }
   
@@ -1098,7 +1104,70 @@ function map_ready(error, geodata, econdata) {
   }
 
 
+// set up the carousel button
+d3.select('#carousel')
+  .style('cursor','pointer')
+  .on('click', function() {
+    if (d3.select('#carousel').text()=="On") {
+      d3.select('#carousel').text('Off');
+      d3.select('#carousel').style('color','black');
+      carousel = false;
+    } else if (d3.select('#carousel').text()=="Off") {
+      d3.select('#carousel').text('On');
+      d3.select('#carousel').style('color','red');
+      carousel = true;
+    }
+  });
+
+var carousel = true;
+var carouselState = 0;
+var carouselStates = {
+  0: {category: 'OUTPUT, INCOME, AND PRICES', indicator: 'MEDIAN HOUSEHOLD INCOME'},
+  1: {category: 'EMPLOYMENT', indicator: 'UNEMPLOYMENT RATE'},
+  2: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'HOUSING VACANCY RATE'},
+  3: {category: 'TAXES', indicator: 'TAXABLE SALES RECEIPTS'},
+  4: {category: 'DEMOGRAPHICS', indicator: 'POPULATION'},
+  5: {category: 'TRANSIT', indicator: 'COMMUTERS USING PUBLIC TRANSIT'},
+  6: {category: 'EMPLOYMENT', indicator: 'TOTAL EMPLOYMENT'},
+  7: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'SINGLE-FAMILY PERMITS'},
+  8: {category: 'DEMOGRAPHICS', indicator: 'MEDIAN AGE'},
+  9: {category: 'DEMOGRAPHICS', indicator: 'POPULATION BY AGE BY GENDER', subindicator: '20 TO 34 YEARS', gender: 'FEMALE'}
+};
+
+function changeVar(current_state) {
+  var cat = carouselStates[current_state].category;
+  var ind = carouselStates[current_state].indicator;
+  var subind = carouselStates[current_state].subindicator;
+  var gender = carouselStates[current_state].gender;
+  selectCategory(cat);
+  $('#selectCategory').val(cat);
+  selectIndicator(ind);
+  $('#selectIndicator').val(ind);
+  if (subind) {
+    selectSubindicator(subind);
+    $('#selectSubindicator').val(subind);
+  }
+  if (gender) {
+    selectGender(gender);
+    $('#selectGender').val(gender);
+  }
+
+  carouselState = (carouselState + 1) % Object.keys(carouselStates).length;
+}
+
+changeVar(carouselState);
+
+window.setInterval(function(){
+  if (carousel) {
+    changeVar(carouselState);
+  }
+}, 4000);
+
+
+
+
 } // end of map_ready
+
 
 
 // label council districts (appears upon mouseover)
