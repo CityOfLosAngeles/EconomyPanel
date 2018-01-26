@@ -2,7 +2,7 @@
 // and https://bl.ocks.org/mbostock/4060606
 
 // also of some interest: square mileage of each CD.
-// some variables (e.g. population) should be mapped per square mile 
+// some variables (e.g. population) should be mapped per square mile
 // http://documents.lahsa.org/planning/homelesscount/2009/CityofLA-CouncilDistricts.pdf
 
 // INITIAL SETUP //
@@ -60,7 +60,7 @@ queue()
 
 
 // begin map_ready function //
-// this is the meat of it! //  
+// this is the meat of it! //
 
 function map_ready(error, geodata, econdata) {
   if (error) throw error;
@@ -114,11 +114,11 @@ function map_ready(error, geodata, econdata) {
     // pick out all indicators with more than one observation using the current filters
     CDindicatorCounts = indicator.group().reduceCount().all().filter(function (d) {return d.value > 0});
     CDindicators = CDindicatorCounts.map(function (d) {return d.key});
-  
+
     // remove cd filter
     cd.filterAll();
     cd.dispose();
-  
+
     // select indicators not in the list
     indicator.filter(function (d) {return CDindicators.indexOf(d)==-1});
     // remove them!
@@ -130,12 +130,12 @@ function map_ready(error, geodata, econdata) {
 
 
   mouseclick = function() {
-    
+
     // check whether the object is a path in the map, or a row in the table
     // either way, save the selections for both
     if (d3.select(this)._groups[0][0].tagName=="path") {
-      id_tmp = "#CD" + d3.select(this).attr('id').match(/\d/)
-      district_row = d3.select(id_tmp);
+      id_tmp = "CD" + d3.select(this).attr('id').match(/\d/);
+      district_row = d3.select('#' + id_tmp);
       district_map = d3.select(this);
     } else if (d3.select(this).attr('id')!="City") {
       id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
@@ -182,6 +182,9 @@ function map_ready(error, geodata, econdata) {
       	cd_label.text(district_text);
       	cd_councilmember.text('(Click to select/unselect)');
       	cd_value.text('');
+        cd_label.on('click', function() {
+          document.getElementById('City').dispatchEvent(new MouseEvent('click'));
+        })
       }
 
       // highlight the district in the table
@@ -288,8 +291,8 @@ function map_ready(error, geodata, econdata) {
       if (district_map) district_map.classed('highlighted', false);
 
       // return cursors to default
-      d3.selectAll('.district').style('cursor','default');
-      d3.selectAll('.tableRow').style('cursor','default');
+      // d3.selectAll('.district').style('cursor','default');
+      // d3.selectAll('.tableRow').style('cursor','default');
 
       // remove the map labels
       cd_label.text('');
@@ -363,7 +366,7 @@ function map_ready(error, geodata, econdata) {
   for (i=0; i<defaultColors.length; i++) {
     geofeatures[i].fill = defaultColors[i];
   }
-  
+
   mapLayer.selectAll('path')
       .data(geofeatures)
       .enter().append('path')
@@ -427,7 +430,7 @@ function map_ready(error, geodata, econdata) {
       })
       .text(d.long);
   })
-    
+
   // add the value column
   locations.forEach(function(d) {
     var id_tmp = '#' + d.short;
@@ -693,7 +696,7 @@ function map_ready(error, geodata, econdata) {
 
       timeData = timePeriods.map(function(d,i) {return {'time':d, 'value':0}});
     }
-  
+
   if (selection_complete) {
       // if timeToggle exists, save current year
       if (d3.select('#timePrelabel').text()!='') {
@@ -748,7 +751,7 @@ function map_ready(error, geodata, econdata) {
       } else if (units=='%') {
         d3.select('#units').text('Percent');
       }
-      
+
 
       // find the unit text
       unitTextFilter = data.dimension(function (d) {return d.unit_text});
@@ -759,7 +762,7 @@ function map_ready(error, geodata, econdata) {
       // update the title and subtitle
       mapTitle.text(maintext + ' (' + units + ')');
       mapSubtitle.text(unitText);
-      
+
     } else {
       // blank out the title and subtitle
       mapTitle.text('Please select a variable');
@@ -803,12 +806,12 @@ function map_ready(error, geodata, econdata) {
     selection_complete = false;
     gender_selected = false;
     subind_selected = false;
-    
+
     // remove time toggle
     d3.select('#timeToggleSVG').remove();
     d3.select('#timeToggleLabel').remove();
     d3.select('#timePrelabel').text('');
-    
+
     // If they choose "-", remove the filter; otherwise filter using given category
     if (cat=="-") {
       category.filterAll();
@@ -838,7 +841,7 @@ function map_ready(error, geodata, econdata) {
 
 
 
-  // functionality for indicator selection // 
+  // functionality for indicator selection //
   indicators = indicator.group().all().map(function (d) {return d.key});
   addOptions('#selectIndicator', indicators);
 
@@ -861,7 +864,7 @@ function map_ready(error, geodata, econdata) {
     d3.select('#timeToggleSVG').remove();
     d3.select('#timeToggleLabel').remove();
     d3.select('#timePrelabel').text('');
-    
+
     // If they chose "-", remove the indicator filter.
     // Otherwise filter using given indicator.
     if (ind=="-") {
@@ -1047,7 +1050,7 @@ function map_ready(error, geodata, econdata) {
       updateTimescale();
       d3.selectAll('.legend').remove();
       makeLegend(map_svg_width * 0.4, map_svg_height * 0.5, 30, 5, color);
-      
+
       // update the title
       if (current_subindicator=='') {
         var subind = '';
@@ -1063,7 +1066,7 @@ function map_ready(error, geodata, econdata) {
       $('#expand').fadeIn(0);
     }
   }
-  
+
   $('#selectGender').attr('onchange', "selectGender(this.value);")
 
 
@@ -1102,6 +1105,8 @@ function map_ready(error, geodata, econdata) {
         .text(formatAmount(legendValues[i]));
     }
   }
+
+
 
 
 // set up the carousel button
@@ -1154,13 +1159,17 @@ function changeVar(current_state) {
   carouselState = (carouselState + 1) % Object.keys(carouselStates).length;
 }
 
+// initialize with the first state
 changeVar(carouselState);
+
+// default to having the City row selected
+document.getElementById('City').dispatchEvent(new MouseEvent('click'));
 
 window.setInterval(function(){
   if (carousel) {
     changeVar(carouselState);
   }
-}, 3000);
+}, 3500);
 
 
 
@@ -1192,14 +1201,13 @@ cd_value = map_svg.append('text')
   .attr('style', 'font-size: 16px')
   .text('');
 
-/* 
+/*
 Helper functions
 */
 
 // http://bl.ocks.org/eesur/4e0a69d57d3bfc8a82c2
-d3.selection.prototype.moveToFront = function() {  
+d3.selection.prototype.moveToFront = function() {
   return this.each(function(){
     this.parentNode.appendChild(this);
   });
 };
-
