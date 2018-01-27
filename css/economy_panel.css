@@ -2,6 +2,12 @@ body {
   padding: 1% 15% 0% 15%;
 }
 
+.carousel {
+  color:steelblue;
+  margin: 0px 0px 0px 20px;
+  cursor:pointer;
+}
+
 #myTitle {
   display: inline-block;
 }

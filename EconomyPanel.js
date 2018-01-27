@@ -90,7 +90,7 @@ function map_ready(error, geodata, econdata) {
 
   // map title and subtitle variables
   mapTitle = d3.select('#mapTitle');
-  mapTitle.text('Please select a variable');
+  mapTitle.text('No variable selected');
   mapSubtitle = d3.select('#mapSubtitle');
 
 
@@ -134,7 +134,7 @@ function map_ready(error, geodata, econdata) {
     // check whether the object is a path in the map, or a row in the table
     // either way, save the selections for both
     if (d3.select(this)._groups[0][0].tagName=="path") {
-      id_tmp = "CD" + d3.select(this).attr('id').match(/\d/);
+      id_tmp = "CD" + d3.select(this).attr('id').match(/\d+/g);
       district_row = d3.select('#' + id_tmp);
       district_map = d3.select(this);
     } else if (d3.select(this).attr('id')!="City") {
@@ -182,9 +182,9 @@ function map_ready(error, geodata, econdata) {
       	cd_label.text(district_text);
       	cd_councilmember.text('(Click to select/unselect)');
       	cd_value.text('');
-        cd_label.on('click', function() {
-          document.getElementById('City').dispatchEvent(new MouseEvent('click'));
-        })
+        // cd_label.on('click', function() {
+        //   document.getElementById('City').dispatchEvent(new MouseEvent('click'));
+        // })
       }
 
       // highlight the district in the table
@@ -217,54 +217,54 @@ function map_ready(error, geodata, econdata) {
 
     if (!mouseoverStatus & !district_selected & !(!isPath & !selection_complete)) {
 
-    // unhighlight all districts
-    d3.selectAll('.district').classed('highlighted', false);
+      // unhighlight all districts
+      d3.selectAll('.district').classed('highlighted', false);
 
-    // check whether the object is a path in the map, or a row in the table
-    // either way, save the selections for both
-    if (d3.select(this)._groups[0][0].tagName=="path") {
-      id_tmp = "#CD" + d3.select(this).attr('id').match(/\d/)
-      district_row = d3.select(id_tmp);
-      district_map = d3.select(this);
-    } else if (d3.select(this).attr('id')!="City") {
-      id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
-      district_row = d3.select(this);
-      district_map = d3.select('#' + id_tmp);
-    } else {
-      district_row = d3.select(this);
-      district_map = null;
-    }
+      // check whether the object is a path in the map, or a row in the table
+      // either way, save the selections for both
+      if (d3.select(this)._groups[0][0].tagName=="path") {
+        id_tmp = "#CD" + d3.select(this).attr('id').match(/\d/)
+        district_row = d3.select(id_tmp);
+        district_map = d3.select(this);
+      } else if (d3.select(this).attr('id')!="City") {
+        id_tmp = d3.select(this).attr('longID').replace(/\s/g, '');
+        district_row = d3.select(this);
+        district_map = d3.select('#' + id_tmp);
+      } else {
+        district_row = d3.select(this);
+        district_map = null;
+      }
 
-    // highlight and update the display text
-    if (district_map) {
-      district_map.moveToFront().classed('highlighted', true);
-      district_text = district_map.attr('label');
-      councilmember_text = district_map.attr('councilmember');
-      cd_label.text(district_text);
-      cd_councilmember.text(councilmember_text);
-    } else {
-      district_text = "City of Los Angeles";
-      cd_label.text(district_text);
-      cd_councilmember.text('(Click to select/unselect)');
-      cd_value.text('');
-    }
+      // highlight and update the display text
+      if (district_map) {
+        district_map.moveToFront().classed('highlighted', true);
+        district_text = district_map.attr('label');
+        councilmember_text = district_map.attr('councilmember');
+        cd_label.text(district_text);
+        cd_councilmember.text(councilmember_text);
+      } else {
+        district_text = "City of Los Angeles";
+        cd_label.text(district_text);
+        cd_councilmember.text('(Click to select/unselect)');
+        cd_value.text('');
+      }
 
-    // if variable selection is complete, change the cursor and highlight the district in the table
-    if (selection_complete) {
-      // change the cursor
-	  district_row.style('cursor', 'pointer');
-	  if (district_map) district_map.style('cursor', 'pointer');
-      if (district_map) cd_value.text('(Click to select/unselect)');
-      var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long": "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
-      var locations_long = locations.map(function (d) {return d.long});
-      var locations_short = locations.map(function (d) {return d.short});
-      var index_tmp = locations_long.indexOf(district_text);
-      var id_tmp = '#' + locations_short[index_tmp];
-      d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
-      d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
-    }
+      // if variable selection is complete, change the cursor and highlight the district in the table
+      if (selection_complete) {
+        // change the cursor
+	    district_row.style('cursor', 'pointer');
+	    if (district_map) district_map.style('cursor', 'pointer');
+        if (district_map) cd_value.text('(Click to select/unselect)');
+        var locations = [{"long":"City of Los Angeles", "short":"City"},{"long": "Council District 1", "short":"CD1"},{"long": "Council District 2", "short":"CD2"},{"long": "Council District 3", "short":"CD3"},{"long": "Council District 4", "short":"CD4"},{"long": "Council District 5", "short":"CD5"},{"long": "Council District 6", "short":"CD6"},{"long": "Council District 7", "short":"CD7"},{"long": "Council District 8", "short":"CD8"},{"long": "Council District 9", "short":"CD9"},{"long":   "Council District 10", "short":"CD10"},{"long": "Council District 11", "short":"CD11"},{"long": "Council District 12", "short":"CD12"},{"long": "Council District 13", "short":"CD13"},{"long": "Council District 14", "short":"CD14"},{"long": "Council District 15", "short":"CD15"}];
+        var locations_long = locations.map(function (d) {return d.long});
+        var locations_short = locations.map(function (d) {return d.short});
+        var index_tmp = locations_long.indexOf(district_text);
+        var id_tmp = '#' + locations_short[index_tmp];
+        d3.select(id_tmp).selectAll('text').attr('style', 'font-weight:bold');
+        d3.select(id_tmp).select('.background').attr('style', 'stroke:gray; fill:none');
+      }
 
-    mouseoverStatus = true;
+      mouseoverStatus = true;
     } // end of if(!mouseoverStats & !district_selected)
   }
 
@@ -628,7 +628,7 @@ function map_ready(error, geodata, econdata) {
     d3.selectAll('.legend').remove();
 
     // delete title and subtitle
-    mapTitle.text('Please select a variable');
+    mapTitle.text('No variable selected');
     mapSubtitle.text('');
 
     // remove timeToggle if it exists
@@ -765,7 +765,7 @@ function map_ready(error, geodata, econdata) {
 
     } else {
       // blank out the title and subtitle
-      mapTitle.text('Please select a variable');
+      mapTitle.text('No variable selected');
       mapSubtitle.text('');
     }
   }
@@ -1117,10 +1117,18 @@ d3.select('#carousel')
       d3.select('#carousel').text('Off');
       d3.select('#carousel').style('color','black');
       carousel = false;
+      // show the selection div
+      $('#selectionDiv').fadeIn(0);
+      $('#collapse').fadeIn(0);
+      $('#expand').fadeOut(0);
     } else if (d3.select('#carousel').text()=="Off") {
       d3.select('#carousel').text('On');
       d3.select('#carousel').style('color','red');
       carousel = true;
+      // hide the selection div
+      $('#selectionDiv').fadeOut(0);
+      $('#collapse').fadeOut(0);
+      $('#expand').fadeIn(0);
     }
   });
 
@@ -1128,14 +1136,10 @@ var carousel = true;
 var carouselState = 0;
 var carouselStates = {
   0: {category: 'OUTPUT, INCOME, AND PRICES', indicator: 'MEDIAN HOUSEHOLD INCOME'},
-  1: {category: 'EMPLOYMENT', indicator: 'UNEMPLOYMENT RATE'},
-  2: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'HOUSING VACANCY RATE'},
-  3: {category: 'TAXES', indicator: 'TAXABLE SALES RECEIPTS'},
-  4: {category: 'DEMOGRAPHICS', indicator: 'POPULATION'},
-  5: {category: 'TRANSIT', indicator: 'COMMUTERS USING PUBLIC TRANSIT'},
-  6: {category: 'EMPLOYMENT', indicator: 'TOTAL EMPLOYMENT'},
-  7: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'SINGLE-FAMILY PERMITS'},
-  8: {category: 'DEMOGRAPHICS', indicator: 'MEDIAN AGE'}
+  1: {category: 'OUTPUT, INCOME, AND PRICES', indicator: 'HOUSEHOLDS IN SNAP'},
+  2: {category: 'EMPLOYMENT', indicator: 'UNEMPLOYMENT RATE'},
+  3: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'HOUSING VACANCY RATE'},
+  4: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'SINGLE-FAMILY PERMITS'},
 };
 
 function changeVar(current_state) {
@@ -1156,21 +1160,32 @@ function changeVar(current_state) {
     $('#selectGender').val(gender);
   }
 
+  d3.selectAll('.carousel').style('opacity',0.3);
+  d3.select('#carousel'+carouselState).style('opacity',1);
+
   carouselState = (carouselState + 1) % Object.keys(carouselStates).length;
+
 }
 
 // initialize with the first state
 changeVar(carouselState);
 
 // default to having the City row selected
-document.getElementById('City').dispatchEvent(new MouseEvent('click'));
+// document.getElementById('City').dispatchEvent(new MouseEvent('click'));
 
 window.setInterval(function(){
   if (carousel) {
     changeVar(carouselState);
   }
-}, 3500);
+}, 4000);
 
+
+// if one of the carousel labels is clicked, change to show that variable
+d3.selectAll('.carousel').on('click', function() {
+  var number = +d3.select(this).attr('id').match(/\d+/g);
+  carouselState = number;
+  changeVar(carouselState);
+})
 
 
 

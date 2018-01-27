@@ -22,14 +22,24 @@
     <p style="margin:5px; font-size:18px; color:gray;">Download the data using the links above, or explore it below in our interactive visualization.</p>
   </header>
   <hr style="margin:2px">
-  <span>Slideshow view: </span><span id='carousel' style="color:red">On</span>
-  <div style="height:3px"></div>
-  <hr style="margin-top:0px">
+
+  <div id="carouselContainer">
+    <span>Slideshow view: </span><span id='carousel' style="color:red">On</span>
+    <span id="carousel0" class="carousel" style="opacity:0.3">Median Income</span>
+    <span id="carousel1" class="carousel" style="opacity:0.3">Households in SNAP</span>
+    <span id="carousel2" class="carousel" style="opacity:0.3">Unemployment Rate</span>
+    <span id="carousel3" class="carousel" style="opacity:0.3">Housing Vacancy Rate</span>
+    <span id="carousel4" class="carousel" style="opacity:0.3">Single-Family Permits</span>
+    <div style="height:3px"></div>
+    <hr style="margin-top:0px">
+  </div>
+  
   <div class="container">
 
     <div class="row">
 
       <div id="selectionDiv" class="col col-md-3" style="padding:0px">
+        <div style="color:steelblue; font-size:20px; float:left">Select a variable:</div>
       	<div id="collapse" style="float:right">
       	  <img src="triangle.svg" width="25px" height="25px" style="padding:5px; transform: scaleX(-1)"/>
         </div>
