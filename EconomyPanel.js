@@ -1139,7 +1139,7 @@ var carouselStates = {
   1: {category: 'OUTPUT, INCOME, AND PRICES', indicator: 'HOUSEHOLDS IN SNAP'},
   2: {category: 'EMPLOYMENT', indicator: 'UNEMPLOYMENT RATE'},
   3: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'HOUSING VACANCY RATE'},
-  4: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'SINGLE-FAMILY PERMITS'},
+  4: {category: 'CONSTRUCTION, HOUSING, AND HOTELS', indicator: 'MULTI-FAMILY PERMITS'},
 };
 
 function changeVar(current_state) {
