@@ -47,7 +47,7 @@ function data_ready(error, econdata) {
   var incomeSetup = make_sparkline('#IncSparkline', '#IncLabel', income, "dollar");
   incomeSetup();
 
-  var unemploymentSetup = make_sparkline('#URSparkline', '#URLabel', unemployment, "amount");
+  var unemploymentSetup = make_sparkline('#URSparkline', '#URLabel', unemployment, "percent");
   unemploymentSetup();
 
   var permitsSetup = make_sparkline('#MFPSparkline', '#MFPLabel', permits, "amount");

@@ -19,16 +19,21 @@
 
   <div style="height:15px"></div>
 
-  <p style="margin:5px; font-size:18px; color:gray;">Twice a year the City Controller receives data from Beacon Economics that provides a snapshot of the City's economy, viewed through a wide variety of demographic and economic indicators.</p>
+  <p style="margin:5px; font-size:18px; color:black;">Twice a year the City Controller receives data from Beacon Economics that provides a snapshot of the City's economy.</p>
+  <p style="margin:5px; font-size:18px; color:black;">Take a quick look at the <a href="#snapshot">City Snapshot</a>, explore the data in our <a href="#explore">interactive visualization</a>, or <a href="#download">download</a> the data to take a look for yourself.</p>
+
+  <div class="footer">
+    <p style="margin-left:5px; margin-top:15px">*The last date of available data varies, depending on the source. Some indicators have a significant delay in reporting.</p>
+  </div>
 
   <hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
 
-  <h2>City Snapshot</h2>
+  <h2 id="snapshot">City Snapshot</h2>
   <div class="row">
     <div class="col-md-3">
       <center>
         <div style="width:100px; height:75px">
-        <img src="images/crowd.svg"/>
+        <img src="images/crowd2.svg"/>
       </div><br>
         Population
         <div id="PopSparkline"></div><span style="margin-left: 10px" id="PopLabel"></span>
@@ -37,7 +42,7 @@
     <div class="col-md-3">
       <center>
         <div style="width:100px; height:75px">
-        <img style="margin-top: 20px" src="images/checks.svg"/></div><br>
+        <img style="margin-top: 20px" src="images/checks2.svg"/></div><br>
         Median Income
         <div id="IncSparkline"></div><span style="margin-left: 25px" id="IncLabel"></span>
       </center>
@@ -45,7 +50,7 @@
     <div class="col-md-3">
       <center>
         <div style="width:100px; height:75px">
-        <img style="margin-top: 30px" src="images/queue.svg"/></div><br>
+        <img style="margin-top: 30px" src="images/queue2.svg"/></div><br>
         Unemployment Rate
         <div id="URSparkline"></div><span style="margin-left: 47px" id="URLabel"></span>
       </center>
@@ -53,7 +58,7 @@
     <div class="col-md-3">
       <center>
         <div style="width:100px; height:75px">
-        <img src="images/apartments.svg"/></div><br>
+        <img src="images/apartments2.svg"/></div><br>
         Multi-Family Permits
         <div id="MFPSparkline"></div><span style="margin-left: 23px" id="MFPLabel"></span>
       </center>
@@ -62,7 +67,7 @@
 
   <hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
 
-  <h2>Explore the data</h2>
+  <h2 id="explore">Explore the data</h2>
 
   <div style="height:15px"></div>
 
@@ -164,17 +169,12 @@
 
   <hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
 
-  <h2>Download the data</h2>
-  <p style="margin:5px; font-size:18px; color:gray">
+  <h2 id="download">Download the data</h2>
     <span style="margin-left:20px"><a href="data/EconomyPanel.xlsx">xls</a></span>
     <span style="margin-left:20px"><a href="data/EconomyPanel.csv">csv</a></span>
-  </p>
   
+  <div style="height:35px"></div>
 
-  <hr>
-  <div class="footer">
-    <p>*The last date of available data varies, depending on the source; some indicators have a significant delay in reporting.</p>
-  </div>
 
 
   <script src="lib/d3_v4.js"></script>
