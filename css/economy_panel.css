@@ -1,13 +1,19 @@
-body {
-  padding: 2% 15% 0% 15%;
+#mainContent {
+  padding: 1% 15% 0% 15%;
+}
+
+.carousel {
+  color:steelblue;
+  margin: 0px 0px 0px 20px;
+  cursor:pointer;
 }
 
 #myTitle {
   display: inline-block;
 }
 
-header span { 
-  margin-left: 10px; 
+header span {
+  margin-left: 10px;
 }
 
 .form-group {
@@ -76,7 +82,6 @@ path {
 .district {
   stroke: gray;
   fill: white;
-  cursor: pointer;
 }
 
 .district.selected {
