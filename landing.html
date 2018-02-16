@@ -18,173 +18,159 @@
   <img style="max-width: 100%; height:auto; width: auto\9;" src="images/abbie-bernet-237683_edit.jpg"/>
 
   <div id="mainContent">
-  <!-- <h1 id="myTitle" style="color: #1e6591;">EconomyPanel LA</h1> -->
-  <!-- <span style="font-size:14px; margin-left: 10px">Updated October 25, 2017<sup>*</sup></span> -->
 
-  <div style="height:15px"></div>
+  	<div style="height:15px"></div>
 
-  <p style="margin:5px; font-size:18px; color:black;">Twice a year the City Controller receives data from Beacon Economics that provides a snapshot of the City's economy.</p>
-  <p style="margin:5px; font-size:18px; color:black;">Take a quick look at the <a href="#snapshot">City Snapshot</a>, explore the data in our <a href="#explore">interactive visualization</a>, or <a href="#download">download</a> the data to take a look for yourself.</p>
-  <p style="margin:5px; font-size:18px; color:black;">The data were last updated October 25, 2017. Please note that the last date of available data varies depending on the source. Some indicators have a significant delay in reporting.</p>
-
-<!--   <div class="footer">
-    <p style="margin-left:5px; margin-top:15px">*The last date of available data varies, depending on the source. Some indicators have a significant delay in reporting.</p>
-  </div> -->
-
-  <hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
-
-  <h2 id="snapshot">City Snapshot</h2>
-  <div class="row">
-    <div class="col-md-3">
-      <center>
-        <div style="width:100px; height:75px">
-        <img src="images/crowd2.svg"/>
-      </div><br>
-        Population
-        <div id="PopSparkline"></div><span style="margin-left: 10px" id="PopLabel"></span>
-      </center>
-    </div>
-    <div class="col-md-3">
-      <center>
-        <div style="width:100px; height:75px">
-        <img style="margin-top: 20px" src="images/checks2.svg"/></div><br>
-        Median Income
-        <div id="IncSparkline"></div><span style="margin-left: 25px" id="IncLabel"></span>
-      </center>
-    </div>
-    <div class="col-md-3">
-      <center>
-        <div style="width:100px; height:75px">
-        <img style="margin-top: 30px" src="images/queue2.svg"/></div><br>
-        Unemployment Rate
-        <div id="URSparkline"></div><span style="margin-left: 47px" id="URLabel"></span>
-      </center>
-    </div>
-    <div class="col-md-3">
-      <center>
-        <div style="width:100px; height:75px">
-        <img src="images/apartments2.svg"/></div><br>
-        Multi-Family Permits
-        <div id="MFPSparkline"></div><span style="margin-left: 23px" id="MFPLabel"></span>
-      </center>
-    </div>
-  </div>
-
-  <hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
-
-  <h2 id="explore">Explore the data</h2>
-
-  <div style="height:15px"></div>
-
-  <p style="margin:5px; font-size:18px; color:black">Our interactive visualization allows an in-depth view of each available indicator by Council District. Examine the changes over time and the differences between different Council Districts.</p>
-  <ul style="margin:5px; font-size:18px; color:black">
-  	<li>Select a new indicator by turning off the slideshow (click "On") and picking from the menu on the left.</li>
-  	<li>To change the time period, mouse over the line to the left of the date.</li>
-  	<li>Select a district by clicking on the map or an entry in the table.</li>
-  </ul>
-<!--   <p style="margin:5px; font-size:18px; color:black">Select a new indicator by turning off the slideshow (click "On") and picking from the menu on the left.</p>
-  <p style="margin:5px; font-size:18px; color:black">To change the time period, mouse over the line to the left of the date.</p>
-  <p style="margin:5px; font-size:18px; color:black">Select a district by clicking on the map or an entry in the table.</p> -->
-  <!-- <img src="images/EconomyPanel.png"/> -->
-  <!-- <iframe src="https://lacitycontroller.github.io/EconomyPanel"></iframe> -->
+  	<p style="margin:5px; font-size:18px; color:black;">Twice a year the City Controller receives data from Beacon Economics that provides a snapshot of the City's economy.</p>
+  	<p style="margin:5px; font-size:18px; color:black;">Take a quick look at the <a href="#snapshot">City Snapshot</a>, explore the data in our <a href="#explore">interactive visualization</a>, or <a href="#download">download</a> the data to take a look for yourself.</p>
+  	<p style="margin:5px; font-size:18px; color:black;">The data were last updated October 25, 2017. Please note that the last date of available data varies depending on the source. Some indicators have a significant delay in reporting.</p>
 
 
-  <div style="height:25px"></div>
+  	<hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
+
+  	<h2 id="snapshot">City Snapshot</h2>
+  	<div class="row">
+  	  <div class="col-md-3">
+  	    <center>
+  	      <img style="margin-top: 20px; width:100px" src="images/crowd_bubble.svg"/>
+  	      <div style="height:10px"></div>
+  	      Population
+  	      <div id="PopSparkline"></div><span style="margin-left: 10px" id="PopLabel"></span>
+  	    </center>
+  	  </div>
+  	  <div class="col-md-3">
+  	    <center>
+  	      <img style="margin-top: 20px; width:100px" src="images/checks_bubble.svg"/>
+  	      <div style="height:10px"></div>
+  	      Median Income
+  	      <div id="IncSparkline"></div><span style="margin-left: 25px" id="IncLabel"></span>
+  	    </center>
+  	  </div>
+  	  <div class="col-md-3">
+  	    <center>
+  	      <img style="margin-top: 20px; width:100px" src="images/queue_bubble.svg"/>
+  	      <div style="height:10px"></div>
+  	      Unemployment Rate
+  	      <div id="URSparkline"></div><span style="margin-left: 47px" id="URLabel"></span>
+  	    </center>
+  	  </div>
+  	  <div class="col-md-3">
+  	    <center>
+  	      <img style="margin-top:20px; width:100px" src="images/apartments_bubble.svg"/>
+  	      <div style="height: 10px"></div>
+  	      Multi-Family Permits
+  	      <div id="MFPSparkline"></div><span style="margin-left: 23px" id="MFPLabel"></span>
+  	    </center>
+  	  </div>
+  	</div>
+
+  	<hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
+
+  	<h2 id="explore">Explore the data</h2>
+
+  	<div style="height:15px"></div>
+
+  	<p style="margin:5px; font-size:18px; color:black">Our interactive visualization allows an in-depth view of each available indicator by Council District. Examine the changes over time and the differences between different Council Districts.</p>
+  	<ul style="margin:5px; font-size:18px; color:black">
+  		<li>Select a new indicator by turning off the slideshow (click "On") and picking from the menu on the left.</li>
+  		<li>To change the time period, mouse over the line to the left of the date.</li>
+  		<li>Select a district by clicking on the map or an entry in the table.</li>
+  	</ul>
+  	<hr>
 
 
-
-  <div id="carouselContainer">
-    <span>Slideshow view: </span><span id='carousel' style="color:red">On</span>
-    <span id="carousel0" class="carousel" style="opacity:0.3">Median Income</span>
-    <span id="carousel1" class="carousel" style="opacity:0.3">Households in SNAP</span>
-    <span id="carousel2" class="carousel" style="opacity:0.3">Unemployment Rate</span>
-    <span id="carousel3" class="carousel" style="opacity:0.3">Housing Vacancy Rate</span>
-    <span id="carousel4" class="carousel" style="opacity:0.3">Multi-Family Permits</span>
-    <div style="height:3px"></div>
-    <hr style="margin-top:0px">
-  </div>
+  	<div id="carouselContainer">
+  	  <span>Slideshow view: </span><span id='carousel' style="color:red">On</span>
+  	  <span id="carousel0" class="carousel" style="opacity:0.3">Median Income</span>
+  	  <span id="carousel1" class="carousel" style="opacity:0.3">Households in SNAP</span>
+  	  <span id="carousel2" class="carousel" style="opacity:0.3">Unemployment Rate</span>
+  	  <span id="carousel3" class="carousel" style="opacity:0.3">Housing Vacancy Rate</span>
+  	  <span id="carousel4" class="carousel" style="opacity:0.3">Multi-Family Permits</span>
+  	  <div style="height:3px"></div>
+  	  <hr style="margin-top:0px">
+  	</div>
 
 
 
 
     <div class="container">
 
-    <div class="row">
+    	<div class="row">
 
-      <div id="selectionDiv" class="col col-md-3" style="padding:0px">
-        <div style="color:steelblue; font-size:20px; float:left">Select a variable:</div>
-        <div id="collapse" style="float:right">
-          <img src="triangle.svg" width="25px" height="25px" style="padding:5px; transform: scaleX(-1)"/>
-        </div>
+      		<div id="selectionDiv" class="col col-md-3" style="padding:0px">
+      		  <div style="color:steelblue; font-size:20px; float:left">Select a variable:</div>
+      		  <div id="collapse" style="float:right">
+      		    <img src="triangle.svg" width="25px" height="25px" style="padding:5px; transform: scaleX(-1)"/>
+      		  </div>
 
-        <div id="categoryDiv" class="form-group" style="display:inline-block;">
-          <label for="selectCategory" style="font-weight:bold">Category</label>
-          <select id="selectCategory" class="form-control">
-            <option>-</option>
-          </select>
-        </div>
+        	<div id="categoryDiv" class="form-group" style="display:inline-block;">
+        	  <label for="selectCategory" style="font-weight:bold">Category</label>
+        	  <select id="selectCategory" class="form-control">
+        	    <option>-</option>
+        	  </select>
+        	</div>
 
-        <div id="indicatorDiv" class="form-group" style="display:none;">
-          <label for="selectIndicator" style="font-weight:bold">Indicator</label>
-          <select class="form-control" id="selectIndicator">
-            <option>-</option>
-          </select>
-        </div>
+        	<div id="indicatorDiv" class="form-group" style="display:none;">
+        	  <label for="selectIndicator" style="font-weight:bold">Indicator</label>
+        	  <select class="form-control" id="selectIndicator">
+        	    <option>-</option>
+        	  </select>
+        	</div>
 
-        <div id="subindicatorDiv" class="form-group" style="display:none;">
-          <label for="selectSubindicator" style="font-weight:bold">Sub-indicator</label>
-          <select class="form-control" id="selectSubindicator">
-            <option>-</option>
-          </select>
-        </div>
+        	<div id="subindicatorDiv" class="form-group" style="display:none;">
+        	  <label for="selectSubindicator" style="font-weight:bold">Sub-indicator</label>
+        	  <select class="form-control" id="selectSubindicator">
+        	    <option>-</option>
+        	  </select>
+        	</div>
 
-        <div id="genderDiv" class="form-group" style="display:none;">
-          <label for="selectGender" style="font-weight:bold">Gender</label>
-          <select class="form-control" id="selectGender">
-            <option>-</option>
-          </select>
-        </div>
+        	<div id="genderDiv" class="form-group" style="display:none;">
+        	  <label for="selectGender" style="font-weight:bold">Gender</label>
+        	  <select class="form-control" id="selectGender">
+        	    <option>-</option>
+        	  </select>
+        	</div>
 
-      </div> <!-- end of variable selection column -->
+      		</div> <!-- end of variable selection column -->
 
-      <!-- a small placeholder div that the user can click to open up the variable selection column after it's closed -->
-      <div>
-        <img id="expand" src="triangle.svg" width="25px" height="25px" style="padding:5px; margin:0px"/>
-      </div>
-
-
-
-      <div class="col-md-9" style="border-left: 1px solid #CCC;">
-        <h5 id="mapTitle"></h5>
-        <h6 id="mapSubtitle"></h6>
-        <div style="height:20px">
-          <span class="timeToggle"><span id="timePrelabel" style="line-height:20px; vertical-align: top"></span><span id="timeSparkline"></span> <span id="timeLabel"></span></span>
-        </div>
-        <div id="map_div"></div>
-        <div id="source" style="display:none;">
-          <span style="font-weight: bold">Source: </span><span id="sourceSpan" style="font-size:16px"></span>
-        </div>
-        <br>
-        <a href="council_district_map.html" style="font-size:12px">Looking for geographic context? Open a detailed map</a>
-      </div> <!-- end of visualization column div -->
-
-
-    </div> <!-- end of row div -->
-
-  </div> <!-- end of container div -->
+     	 	<!-- a small placeholder div that the user can click to open up the variable selection column after it's closed -->
+     	 	<div>
+     	 	  <img id="expand" src="triangle.svg" width="25px" height="25px" style="padding:5px; margin:0px"/>
+     	 	</div>
 
 
 
+      		<div class="col-md-9" style="border-left: 1px solid #CCC;">
+      		  <h5 id="mapTitle"></h5>
+      		  <h6 id="mapSubtitle"></h6>
+      		  <div style="height:20px">
+      		    <span class="timeToggle"><span id="timePrelabel" style="line-height:20px; vertical-align: top"></span><span id="timeSparkline"></span> <span id="timeLabel"></span></span>
+      		  </div>
+      		  <div id="map_div"></div>
+      		  <div id="source" style="display:none;">
+      		    <span style="font-weight: bold">Source: </span><span id="sourceSpan" style="font-size:16px"></span>
+      		  </div>
+      		  <br>
+      		  <a href="council_district_map.html" style="font-size:12px">Looking for geographic context? Open a detailed map</a>
+      		</div> <!-- end of visualization column div -->
 
 
-  <hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
+    	</div> <!-- end of row div -->
 
-  <h2 id="download">Download the data</h2>
-    <p style="margin:5px; font-size:18px; color:black">The data are available as an Excel spreadsheet (xls) or as a text file of comma-separated values (csv).</p>
-    <span style="margin-left:20px"><a href="data/EconomyPanel.xlsx">xls</a></span>
-    <span style="margin-left:20px"><a href="data/EconomyPanel.csv">csv</a></span>
+  	</div> <!-- end of container div -->
+
+
+
+
+
+  	<hr style="color:black; background-color:black; height:2px; margin-top:25px; margin-bottom:25px">
+
+  	<h2 id="download">Download the data</h2>
+  	  <p style="margin:5px; font-size:18px; color:black">The data are available as an Excel spreadsheet (xls) or as a text file of comma-separated values (csv).</p>
+  	  <span style="margin-left:20px"><a href="data/EconomyPanel.xlsx">xls</a></span>
+  	  <span style="margin-left:20px"><a href="data/EconomyPanel.csv">csv</a></span>
   
-  <div style="height:35px"></div>
+  	<div style="height:35px"></div>
 
   </div> <!-- end of mainContent div -->
 
